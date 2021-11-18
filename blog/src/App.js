@@ -7,6 +7,10 @@ function App() {
  let [따봉,따봉변경] = useState([0,0,0])
  let [modal,setModal] = useState(false)
  let [누른제목, 누른제목변경] = useState(0)
+ 
+ let [inputs,setInput] = useState('')
+
+
  function modalClick(){
    setModal(!modal)
  }
@@ -38,6 +42,8 @@ function App() {
        </div>
         })
       }
+      {inputs}
+      <input onChange={(event)=>{setInput(event.target.value)}}></input>
       <button onClick = {modalClick}>열고닫기</button>
       {modal ? <Modal 글제목={글제목} 누른제목={누른제목} /> : null }
     </div>
