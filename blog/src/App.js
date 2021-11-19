@@ -4,11 +4,16 @@ import './App.css';
 function App() {
 
  let [글제목,글제목변경] = useState(['봄바일기','채영일기','민우일기']);
- let [따봉,따봉변경] = useState([0,0,0])
+ let [따봉,따봉변경] = useState([0,0,0,0,0])
  let [modal,setModal] = useState(false)
  let [누른제목, 누른제목변경] = useState(0)
  
- let [inputs,setInput] = useState('')
+ let [inputs,setInput] = useState([])
+
+ function addBlog(){
+   let copyArr2 = [...글제목]
+   글제목변경([inputs,...copyArr2])
+ }
 
 
  function modalClick(){
@@ -42,13 +47,16 @@ function App() {
        </div>
         })
       }
-      {inputs}
-      <input onChange={(event)=>{setInput(event.target.value)}}></input>
+      <div className = "publish">
+        <input onChange = {(event)=>setInput(event.target.value)}/>
+        <button onClick = {addBlog}>저장</button>
+      </div>
       <button onClick = {modalClick}>열고닫기</button>
       {modal ? <Modal 글제목={글제목} 누른제목={누른제목} /> : null }
     </div>
   );
 }
+
 
 
 function Modal(props){
