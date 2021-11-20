@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './App.css';
 
-function App() {
+function App() { //따봉도 push가 되면 바뀌게?
 
  let [글제목,글제목변경] = useState(['봄바일기','채영일기','민우일기']);
- let [따봉,따봉변경] = useState([0,0,0,0,0])
+ let [따봉,따봉변경] = useState([0,0,0])
  let [modal,setModal] = useState(false)
  let [누른제목, 누른제목변경] = useState(0)
  
@@ -13,6 +13,7 @@ function App() {
  function addBlog(){
    let copyArr2 = [...글제목]
    글제목변경([inputs,...copyArr2])
+   따봉변경([0,...따봉])
  }
 
 
@@ -39,12 +40,17 @@ function App() {
       <div>Sophie Blog</div>
     </div> 
       {
-        글제목.map((el,i)=>{
-         return  <div className = "list">
-         <h3 onClick = {()=>{누른제목변경(i)}}>{ el } <span onClick={()=>onClick(i)}>👍🏻</span>{따봉[i]}</h3>
-         <p>2월 17일 발행</p>
-         <hr/>
-       </div>
+        글제목.map((title,index)=>{
+        //  return  (
+        //  <div className = "list">
+        //   <h3 onClick = {()=>{누른제목변경(i)}}>
+        //     { el }<span onClick={()=>onClick(i)}>👍🏻</span>{따봉[i]}
+        //   </h3>
+        //   <p>2월 17일 발행</p>
+        //   <hr/>
+        // </div>
+        //  )
+        return <Blog i={index} 누른제목변경={누른제목변경} 따봉오름={onClick} 따봉={따봉}  title={title}/>
         })
       }
       <div className = "publish">
@@ -55,6 +61,18 @@ function App() {
       {modal ? <Modal 글제목={글제목} 누른제목={누른제목} /> : null }
     </div>
   );
+}
+
+function Blog({i, 누른제목변경, 따봉오름, 따봉, title}){
+  return(
+    <div className = "list">
+    <h3 onClick = {()=>{누른제목변경(i)}}>
+      { title }<span onClick={()=>따봉오름(i)}>👍🏻</span>{따봉[i]}
+    </h3>
+    <p>2월 17일 발행</p>
+    <hr/>
+  </div>
+  )
 }
 
 
