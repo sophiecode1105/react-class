@@ -3,20 +3,24 @@ import React,{useState} from 'react';
 import { Navbar, Container,Nav,NavDropdown} from 'react-bootstrap'
 import './App.css';
 import Data from './data.js'
+import Detail from './detail.js'
 
+import {Route, Switch,Link} from 'react-router-dom'
 function App() {
   const [shoes, setShoes] = useState(Data);
 
   return (
     <>
+    <Switch>
+    <Route exact path="/">
     <Navbar bg="light" expand="lg">
     <Container>
       <Navbar.Brand href="#home">shoeshop</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#link">Link</Nav.Link>
+          <Nav.Link> <Link to="/">Home</Link></Nav.Link>
+          <Nav.Link> <Link to="/detail">Detail</Link></Nav.Link>
           <NavDropdown title="Dropdown" id="basic-nav-dropdown">
             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -37,18 +41,26 @@ function App() {
         }
         </div>
       </div>
+      </Route>
+
+      <Route path="/detail/:id">
+          <Detail shoes={shoes}/>
+        </Route>
+      </Switch>
  </>
   );
 }
 
-function Card(props){
+function Card({shoes,i}){
   return(
     <div className="col-md-4">
-    <img src={"https://codingapple1.github.io/shop/shoes"+ (props.i+1) +".jpg"} width="100%" />
-    <h4>{props.shoes.title}</h4>
-    <p>{props.shoes.content}</p>
+    <img src={"https://codingapple1.github.io/shop/shoes"+ (i+1) +".jpg"} width="100%" />
+    <h4>{shoes.title}</h4>
+    <p>{shoes.content}</p>
   </div>
   )
 }
+
+
 
 export default App;
