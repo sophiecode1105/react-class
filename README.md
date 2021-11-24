@@ -1,1 +1,1 @@
-# making shoppingmall
+# making shoppingmall app
